@@ -146,5 +146,6 @@ function displayErrorMessages(errorText){
 }
 
 function displayConfirmation(){
-	
+	$("#loginForm").addClass("hidden");
+	$("#confirmation").removeClass("hidden");
 }

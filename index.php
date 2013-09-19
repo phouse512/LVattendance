@@ -38,10 +38,10 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-3 col-lg-offset-3">
-				<div class="confirmation-image">
+				<div id="confirmation" class="confirmation-image" style="display: none;">
 					<img src="img/checkmark.png">
 				</div>
-				<div id="loginForm" class="container verticalSpace3 hidden">
+				<div id="loginForm" class="container verticalSpace3">
 					<input type="text" class="hidden event_id" id="28">
 					<form class="form-horizontal">
 						<div id="firstName" class="form-group">
