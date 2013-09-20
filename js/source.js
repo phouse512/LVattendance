@@ -98,8 +98,10 @@ function submitForm(){
 	valid = validateForm(firstName, lastName, emailAddress, year, dorm, eventID);
 	if(valid[0] < 1){
 		insertUser(firstName, lastName, emailAddress, year, eventID, dorm);
+		resetForm();
 	} else if( valid[0] == 10){
 		updateAttendance(valid[1], eventID);
+		resetForm();
 	} else {
 		console.log(valid[1]);
 		$(".alert").find("strong").html(valid[1]);
@@ -142,10 +144,26 @@ function insertUser(firstName, lastName, emailAddress, year, eventName, dormitor
 }
 
 function displayErrorMessages(errorText){
-	
+	$(".alert").find("strong").html(errorText);
+	$(".alert").addClass("in");
 }
 
-function displayConfirmation(){
-	$("#loginForm").addClass("hidden");
-	$("#confirmation").removeClass("hidden");
+function resetForm(){
+	$("#loginForm").fadeOut("slow", function() {
+		$("#confirmation").fadeIn();
+		clearForm();
+		setTimeout(function() {
+			$("#confirmation").fadeOut("slow", function() {
+				$("#loginForm").fadeIn();
+			});
+		}, 2000);
+	});
+}
+
+function clearForm(){
+	$("#firstname").val("");
+	$("#lastname").val("");
+	$("#email").val("");
+	$("#dorm").val("");
+	$("#yearSelect").val("..");
 }

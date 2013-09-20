@@ -8,5 +8,6 @@
 	if($res2 = mysqli_query($connection, $sql_attendance)){
 		echo "success";
 	}
+
 	echo $sql_attendance;
 ?>

@@ -24,6 +24,10 @@
 				e.preventDefault();
 				$(".alert").removeClass("in");
 			});
+
+			$("#submitAttendance").on("click", function(e) {
+				submitForm();
+			});
 		});
 
 
@@ -78,7 +82,7 @@
 						</div>
 						<div id="Submit" class="form-group">
 							<div class="col-lg-10">
-								  <button type="button" class="btn btn-primary btn-block submit-button">Submit</button>
+								  <button id="submitAttendance" type="button" class="btn btn-primary btn-block submit-button">Submit</button>
 							</div>
 						</div>
 					</form>	
@@ -96,7 +100,7 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2">
-				<div class="verticalSpace3 fade alert alert-danger alert-dismissable">
+				<div class="verticalSpace fade alert alert-danger alert-dismissable">
 					<button type="button" class="close" aria-hidden="true">&times;</button>
 					<strong>Worrd</strong>
 				</div>
