@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    if ($_SESSION["attendance_login"]) {
+    if (!$_SESSION["event_id"]) {
         // User logged in, redirect to homepage
         Header("Location: login.php");
     }
@@ -20,6 +20,7 @@
         <script src="js/source.js"></script>
 		<script>
 		$(document).ready(function (){
+			displayEventTracking();
 			$(".close").on("click", function(e) {
 				e.preventDefault();
 				$(".alert").removeClass("in");
@@ -28,12 +29,20 @@
 			$("#submitAttendance").on("click", function(e) {
 				submitForm();
 			});
+
+			$("#closeTracking").on("click", function(e) {
+				e.preventDefault();
+				closeEventTracking();
+			});
 		});
-
-
 		</script>
 	</head>
 	<body>
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-3">
+				<div id="currentTrack" class="alert alert-info"><a id="closeTracking" href="#" class="alert-link">Log out</a></div>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="col-lg-4 col-lg-offset-3">

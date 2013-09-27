@@ -3,6 +3,7 @@
 
 	$username = $_POST['userName'];
 	$pw = $_POST['password'];
+	$event_id = $_POST['eventID'];
 	
 	$connection = mysqli_connect('localhost', 'nuaaivco_event', 'pmh518', 'nuaaivco_events');
 
@@ -14,6 +15,7 @@
 		//login successful
 		$_SESSION["valid_id"] = $rows['admin_id'];
 		$_SESSION["attendance_login"] = $username;
+		$_SESSION["event_id"] = $event_id;
 		$_SESSION["valid_time"] = time();
 
 		echo "success";

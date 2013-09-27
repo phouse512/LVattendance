@@ -92,7 +92,7 @@ function submitForm(){
 	emailAddress = $('#email').val();
 	dorm = $('#dorm').val();
 	year = $('#yearSelect').val();
-	eventID = $('#event_id').val();
+	eventID = $('.event_id').val();
 
 
 	valid = validateForm(firstName, lastName, emailAddress, year, dorm, eventID);
@@ -166,4 +166,31 @@ function clearForm(){
 	$("#email").val("");
 	$("#dorm").val("");
 	$("#yearSelect").val("..");
+}
+
+function displayEventTracking(){
+      $.ajax({
+            url: 'script/getEventTracking.php',
+            type: 'GET',
+            async: false,
+            success: function(data, textStatus, xhr){
+				$("#currentTrack").prepend(data);
+            },
+            error: function(xhr, textStatus, errorThrown){
+                  alert(textStatus);
+            } 
+      });
+}
+
+function closeEventTracking(){
+      $.ajax({
+            url: 'script/closeEventTracking.php',
+            type: 'GET',
+            success: function(data, textStatus, xhr){
+			    window.location.replace("http://www.nuaaiv.com/attendance/");
+            },
+            error: function(xhr, textStatus, errorThrown){
+            	alert(textStatus);
+            }
+      });
 }

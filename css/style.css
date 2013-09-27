@@ -17,6 +17,9 @@ body {
 	background-attachment: fixed;
 }
 
+.more-padding {
+	padding-bottom: 35px;
+}
 
 .confirmation-image {
 	margin-top: 100px;
