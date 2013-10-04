@@ -7,13 +7,13 @@ function getCurrentArray() {
 
 	return currentArray;
 }
-
+/*
 function updateSuggestions() {
 	currentDisplayed = JSON.stringify(getCurrentArray());
 	firstName = $("#firstname").val();
 	lastName = $("#lastname").val();
 	emailAddress = $("#email").val();
-	eventId = $("#event_id").val();
+	eventId = $("#event_id").attr("id");
 	year = $("#yearSelect").val();
 	dormitory = $("#dorm").val();
 
@@ -34,6 +34,73 @@ function updateSuggestions() {
 		error: function(xhr, textStatus, errorThrown){
 			alert(textStatus);
 		}
+	});
+}*/
+
+function updateSuggestions() {
+	firstName = $("#firstname").val();
+	lastName = $("#lastname").val();
+	emailAddress = $("#email").val();
+	eventId = $("#event_id").attr("id");
+	var year = '';
+	if($("#yearSelect").val() != ".."){
+		year = $("#yearSelect").val();
+	}
+
+	$.ajax({
+		url: 'script/updateSuggestions.php',
+		type: 'POST',
+		data: ({email: emailAddress,
+				first_name: firstName,
+				last_name: lastName,
+				eventID: eventId,
+				year: year}),
+		success: function(data, textStatus, xhr){
+			displaySuggestions(data);
+		},
+		error: function(xhr, textStatus, errorThrown){
+			alert(textStatus);
+		}
+	});
+}
+
+function autoCompleteListeners(){
+	$("ul").on("click", "li", function(){
+		$("#firstname").val($(this).find(".suggestFirstName").html());
+		$("#lastname").val($(this).find(".suggestLastName").html());
+		$("#email").val($(this).find(".suggestEmail").html());
+		$("#yearSelect").val($(this).find(".suggestYear").html());
+		$("#dorm").val($(this).find(".suggestDorm").html());
+	});
+}
+
+function displaySuggestions(data){
+	var users = data.getElementsByTagName("user");
+	var listHTML = '<ul class="list-group">';
+	var tempHTML = '';
+
+	for(var i=0; i<users.length; i++) {
+		userID = users[i].getElementsByTagName("user_id")[0].textContent;
+		firstName = users[i].getElementsByTagName("first_name")[0].textContent;
+		lastName = users[i].getElementsByTagName("last_name")[0].textContent;
+		email = users[i].getElementsByTagName("email")[0].textContent;
+		dorm = users[i].getElementsByTagName("dorm")[0].textContent;
+		year = users[i].getElementsByTagName("year")[0].textContent;
+		tempHTML = '<li id="' + userID + '" class="list-group-item"><strong>' + firstName + ' ' + lastName + '</strong><span class="pull-right"><strong>' + email + '</strong><span>';
+		tempHTML += '<span class="hidden-field suggestFirstName">' + firstName + '</span><span class="hidden-field suggestLastName">' + lastName + '</span>';
+		tempHTML += '<span class="hidden-field suggestEmail">' + email + '</span><span class="hidden-field suggestDorm">' + dorm + '</span>';
+		tempHTML += '<span class="hidden-field suggestYear">' + year + '</span></li>';
+		listHTML += tempHTML;
+	}
+	listHTML += '</ul>';
+
+	$("#suggestions").hide().html(listHTML).slideDown('slow');
+	autoCompleteListeners();
+}
+
+function updateSuggestionsListeners(){
+	$("input").focusout(function() {
+		updateSuggestions();
 	});
 }
 
@@ -92,7 +159,7 @@ function submitForm(){
 	emailAddress = $('#email').val();
 	dorm = $('#dorm').val();
 	year = $('#yearSelect').val();
-	eventID = $('.event_id').val();
+	eventID = $('.event_id').attr("id");
 
 
 	valid = validateForm(firstName, lastName, emailAddress, year, dorm, eventID);
@@ -152,11 +219,12 @@ function resetForm(){
 	$("#loginForm").fadeOut("slow", function() {
 		$("#confirmation").fadeIn();
 		clearForm();
+		$("#suggestions").html("");
 		setTimeout(function() {
 			$("#confirmation").fadeOut("slow", function() {
 				$("#loginForm").fadeIn();
 			});
-		}, 2000);
+		}, 1250);
 	});
 }
 
@@ -187,7 +255,7 @@ function closeEventTracking(){
             url: 'script/closeEventTracking.php',
             type: 'GET',
             success: function(data, textStatus, xhr){
-			    window.location.replace("http://www.nuaaiv.com/attendance/");
+			    location.reload();
             },
             error: function(xhr, textStatus, errorThrown){
             	alert(textStatus);

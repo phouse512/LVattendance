@@ -17,6 +17,12 @@ body {
 	background-attachment: fixed;
 }
 
+
+
+.hidden-field {
+	display: none;
+}
+
 .more-padding {
 	padding-bottom: 35px;
 }
@@ -27,6 +33,10 @@ body {
 
 .list-group-item {
 	padding-right: 12px;
+}
+
+.list-group-item:hover{
+	cursor: pointer;
 }
 
 .fade {

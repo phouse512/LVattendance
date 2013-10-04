@@ -21,7 +21,9 @@ function submitLogin() {
 	password = $("#inputPassword").val();
 	eventID = $("#selectEvent").val();
 
-	login(username, password, eventID);
+	if(validateForm(username, password, eventID) == 0){
+		login(username, password, eventID);
+	}
 }
 
 function login(username, password, eventID){
@@ -34,6 +36,8 @@ function login(username, password, eventID){
 		success: function(data, textStatus, xhr){
 			if (data == "success"){
 				window.location.replace("http://nuaaiv.com/attendance");
+			} else {
+				console.log(data);
 			}
 		},
 		error: function(xhr, textStatus, errorThrown){
@@ -59,6 +63,10 @@ function validateForm(username, password, eventID){
 	}
 
 	return output;
+}
+
+function isBlank(str) {
+    return (!str || /^\s*$/.test(str));
 }
 
 function displayEventSelectBox(){

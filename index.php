@@ -20,6 +20,8 @@
         <script src="js/source.js"></script>
 		<script>
 		$(document).ready(function (){
+			updateSuggestionsListeners();
+
 			displayEventTracking();
 			$(".close").on("click", function(e) {
 				e.preventDefault();
@@ -97,14 +99,8 @@
 					</form>	
 				</div>
 			</div>
-			<div class="col-lg-5 verticalSpace3">
-				<ul class="list-group">
-					<li id="1" class="list-group-item"><strong>Phil House </strong><span class="pull-right"><strong>philiphouse2015@u.northwestern.edu</strong><span></li>
-					<li id="2" class="list-group-item"><strong>Philip House </strong><span class="pull-right"><strong>philiphouse2015@u.northwestern.edu</strong><span></li>
-					<li id="3" class="list-group-item"><strong>er House </strong><span class="pull-right"><strong>philiphouse2015@u.northwestern.edu</strong><span></li>
-					<li id="4" class="list-group-item"><strong>Phil House </strong><span class="pull-right"><strong>philiphouse2015@u.northwestern.edu</strong><span></li>
-					<li id="5" class="list-group-item"><strong>Phil House </strong><span class="pull-right"><strong>philiphouse2015@u.northwestern.edu</strong><span></li>
-				</ul>
+			<div id="suggestions" class="col-lg-5 verticalSpace3">
+
 			</div>
 		</div>
 		<div class="row">

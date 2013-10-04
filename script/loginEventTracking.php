@@ -11,7 +11,7 @@
 	$res = mysqli_query($connection, $query);
 	$rows = mysqli_fetch_array($res, MYSQLI_ASSOC);	
 
-	if (mysqli_num_rows($res) == 1){
+	if (mysqli_num_rows($res) > 0){
 		//login successful
 		$_SESSION["valid_id"] = $rows['admin_id'];
 		$_SESSION["attendance_login"] = $username;
